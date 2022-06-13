@@ -24,6 +24,7 @@
       "@designSystem/*": ["src/DesignSystem/*"],
       "@styles/*": ["src/DesignSystem/utils/styles/*"],
       "@jokes/*": ["src/Jokes/*"],
+      "@assets/*": ["src/Assets/*"]
     }
   },
   "exclude": [

@@ -1,5 +1,12 @@
 import React, {useCallback} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  StyleProp,
+  ViewStyle,
+} from 'react-native';
 import {Colors, IColors} from '../../utils/styles/Colors';
 
 interface IButtonProps {
@@ -8,28 +15,27 @@ interface IButtonProps {
   onPressButton: () => void;
   colors?: IColors;
   isLoading?: boolean;
+  buttonStyle?: StyleProp<ViewStyle>;
 }
 
 export const Button = ({
-  children,
   buttonText,
   onPressButton,
   isLoading,
+  buttonStyle,
 }: IButtonProps) => {
   const content = useCallback(() => {
-    if (typeof children !== 'string') {
-      return children;
-    }
-
     if (isLoading) {
-      <Text>Loading...</Text>;
+      return <Text style={style.buttonText}>Carregando...</Text>;
     }
 
-    return <Text>{buttonText}</Text>;
-  }, [children, buttonText, isLoading]);
+    return <Text style={style.buttonText}>{buttonText}</Text>;
+  }, [isLoading, buttonText]);
 
   return (
-    <TouchableOpacity onPress={onPressButton}>
+    <TouchableOpacity
+      onPress={onPressButton}
+      style={(style.button, buttonStyle)}>
       <View style={style.button}>{content()}</View>
     </TouchableOpacity>
   );
@@ -37,11 +43,14 @@ export const Button = ({
 
 const style = StyleSheet.create({
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: 40,
+    paddingVertical: 40,
+    backgroundColor: Colors.BUTTON_BACKGROUND,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
     fontSize: 22,
-    color: Colors.REGULAR,
+    color: Colors.WHITE,
   },
 });

@@ -4,7 +4,7 @@ import {ScreenWithHeader} from '@designSystem/Components/Header/ScreenWithHeader
 
 export const MenuScreen = () => {
   return (
-    <ScreenWithHeader title="App">
+    <ScreenWithHeader title="Menu">
       <MenuContainer />
     </ScreenWithHeader>
   );

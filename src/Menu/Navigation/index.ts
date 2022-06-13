@@ -1,4 +1,5 @@
 export enum MenuScreens {
-  MENU = 'MENU',
-  JOKES = 'JOKES',
+  MENU = 'Menu',
+  JOKES = 'Menu/Jokes',
+  ABOUT = 'Menu/About',
 }

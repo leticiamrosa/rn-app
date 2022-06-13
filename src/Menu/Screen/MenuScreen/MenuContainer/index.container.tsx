@@ -4,6 +4,7 @@ import {useJokesHook} from '@jokes/Hooks/Joke';
 import {Colors} from '@designSystem/utils/styles/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {Button} from '@designSystem/Components/Button';
+import {MenuScreens} from '@menu/Navigation/';
 
 enum ButtonText {
   JOKES = 'JOKES',
@@ -17,7 +18,7 @@ export const MenuContainer = () => {
   const handleOnPressJokes = async () => {
     try {
       await getJokes();
-      // navigation.navigate();
+      navigation.navigate(MenuScreens.ABOUT);
     } catch {
       // navigation error
     }
@@ -29,11 +30,13 @@ export const MenuContainer = () => {
     <View style={style.container}>
       <View style={style.wrapper}>
         <Button
+          buttonStyle={style.button}
           buttonText={ButtonText.JOKES}
           onPressButton={handleOnPressJokes}
           isLoading={loading}
         />
         <Button
+          buttonStyle={style.button}
           buttonText={ButtonText.SOBRE}
           onPressButton={handleOnPressAbout}
         />
@@ -45,9 +48,11 @@ export const MenuContainer = () => {
 const style = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    paddingTop: 40,
   },
   wrapper: {
-    backgroundColor: 'red',
+    flex: 1,
   },
   button: {
     paddingHorizontal: 20,
