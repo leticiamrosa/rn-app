@@ -11,3 +11,8 @@ export type HttpResponse<T> = {
   statusCode: HttpStatusCode;
   body?: T;
 };
+
+export type HttpResponseError<T> = {
+  statusCode: HttpStatusCode;
+  error?: T;
+};

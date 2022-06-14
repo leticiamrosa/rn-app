@@ -1,19 +1,29 @@
 import {
   HttpResponse,
-  HttpPostClient,
   HttpGetParams,
+  HttpGetClient,
+  HttpResponseError,
 } from '@infra/http/protocols';
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosError, AxiosResponse} from 'axios';
 
-export class AxiosHttpClient implements HttpPostClient<any, any> {
-  async get(params: HttpGetParams<any>): Promise<HttpResponse<any>> {
+export class AxiosHttpClient implements HttpGetClient<any, any> {
+  async get(
+    params: HttpGetParams<any>,
+  ): Promise<HttpResponse<any> | HttpResponseError<any>> {
     let httpResponse: AxiosResponse<any>;
-    const headers = {Accept: 'application/json'};
+
+    const headers = {
+      Accept: 'application/json',
+    };
 
     try {
       httpResponse = await axios.get(params.url, {headers});
-    } catch (error) {
-      httpResponse = error.message;
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return {
+        statusCode: Number(err.status) || 500,
+        error: err.message,
+      };
     }
 
     return {
