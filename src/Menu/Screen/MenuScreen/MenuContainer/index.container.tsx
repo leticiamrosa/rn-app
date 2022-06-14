@@ -7,7 +7,7 @@ import {Button} from '@designSystem/Components/Button';
 import {MenuScreens} from '@menu/Navigation/';
 
 enum ButtonText {
-  JOKES = 'JOKES',
+  JOKES = 'PIADAS',
   SOBRE = 'SOBRE',
 }
 
