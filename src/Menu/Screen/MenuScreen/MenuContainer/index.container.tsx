@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {useJokesHook} from '@jokes/Hooks/Joke';
+import {JokesContext} from '@jokes/Context';
 import {Colors} from '@designSystem/utils/styles/Colors';
 import {useNavigation} from '@react-navigation/native';
 import {Button} from '@designSystem/Components/Button';
@@ -13,18 +13,21 @@ enum ButtonText {
 
 export const MenuContainer = () => {
   const navigation = useNavigation();
-  const {getJokes, jokes, error, loading} = useJokesHook();
+
+  const {getJokes, loading} = JokesContext.useContainer();
 
   const handleOnPressJokes = async () => {
     try {
       await getJokes();
-      navigation.navigate(MenuScreens.ABOUT);
+      navigation.navigate(MenuScreens.JOKES);
     } catch {
       // navigation error
     }
   };
 
-  const handleOnPressAbout = () => {};
+  const handleOnPressAbout = () => {
+    navigation.navigate(MenuScreens.ABOUT);
+  };
 
   return (
     <View style={style.container}>

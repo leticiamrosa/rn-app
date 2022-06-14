@@ -54,7 +54,7 @@ const generateStyles = ({top}: IStyles) => {
 
   return StyleSheet.create({
     contentHeader: {
-      backgroundColor: Colors.BACKGROUND,
+      backgroundColor: Colors.HEADER_BACKGROUND,
       height: SCREEN_HEADER_HEIGHT,
       flexDirection: 'row',
       justifyContent: 'center',

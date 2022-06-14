@@ -43,8 +43,8 @@ export const Button = ({
 
 const style = StyleSheet.create({
   button: {
-    paddingHorizontal: 40,
-    paddingVertical: 40,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
     backgroundColor: Colors.BUTTON_BACKGROUND,
     justifyContent: 'center',
     alignItems: 'center',
