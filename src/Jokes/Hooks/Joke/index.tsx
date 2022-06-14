@@ -1,8 +1,7 @@
 import {useState} from 'react';
-import axios from 'axios';
-import {IJoke, IGetJokesResult} from '../../Interface/Joke';
-
-const baseApi = 'https://icanhazdadjoke.com';
+import {makeApiUrl, makeAxiosHttpClient} from '@main/Factories/Http';
+import {IJoke} from '../../Interface/Joke';
+import {JokeService} from '@jokes/Services/';
 
 interface IError {
   message: string;
@@ -11,18 +10,23 @@ interface IError {
 }
 
 export const useJokesHook = () => {
-  const [jokes, setJokes] = useState<IJoke[]>([]);
+  const [jokes, setJokes] = useState<IJoke[] | undefined>([]);
   const [error, setError] = useState<IError>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const getJokes = async () => {
-    const url = `${baseApi}/search`;
-    const headers = {Accept: 'application/json'};
+    const path = 'search';
+    const jokeService = new JokeService(
+      makeApiUrl(path),
+      makeAxiosHttpClient(),
+    );
 
     try {
       setLoading(true);
-      const response = await axios.get(url, {headers});
-      await getJokesSuccess(response);
+      const response = await jokeService.getJokes();
+      const results = response?.body?.results;
+
+      await getJokesSuccess(results);
     } catch (err) {
       setError({
         message: 'Empty Jokes',
@@ -34,9 +38,7 @@ export const useJokesHook = () => {
     }
   };
 
-  const getJokesSuccess = async (response: IGetJokesResult) => {
-    const {results} = response.data;
-
+  const getJokesSuccess = async (results: IJoke[] | undefined) => {
     if (!results || results.length === 0) {
       setError({
         message: 'Empty Jokes',
